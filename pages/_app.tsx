@@ -11,6 +11,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <ul>
           <li><Link href="/">Home</Link></li>
           <li><Link href="/create">Create account</Link></li>
+          <li><Link href="/transfer">Transfer funds</Link></li>
         </ul>
       </menu>
 

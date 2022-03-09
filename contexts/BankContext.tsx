@@ -9,7 +9,7 @@ type Account = {
 type Action = {
   type: 'add_account', account: Omit<Account, 'id'>
 } | {
-  type: 'remove'
+  type: 'transfer', fromAccount: number, toAccount: number, amount: number
 }
 type Dispatch = (action: Action) => void
 type State = { accounts: Account[] }
@@ -35,8 +35,26 @@ function bankReducer(state: State, action: Action) {
       const accounts = [...state.accounts, newAccount]
       return { ...state, accounts };
     }
-    case 'remove': {
-      return state;
+
+    case 'transfer': {
+
+      const fromAccount = state.accounts.find(account => account.id === action.fromAccount);
+      const toAccount = state.accounts.find(account => account.id === action.toAccount);
+
+      if (!fromAccount || !toAccount) {
+        throw new Error('Account not found');
+      }
+
+      const restAccounts = state.accounts.filter(account => account.id !== action.fromAccount && account.id !== action.toAccount);
+
+      const fromAccountBalance = fromAccount.balance - action.amount;
+      const toAccountBalance = toAccount.balance + action.amount;
+
+      const updatedFromAccount = { ...fromAccount, balance: fromAccountBalance };
+      const updatedToAccount = { ...toAccount, balance: toAccountBalance };
+
+      const accounts = [updatedFromAccount, updatedToAccount, ...restAccounts];
+      return { ...state, accounts };
     }
   }
 }
