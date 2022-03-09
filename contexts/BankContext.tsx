@@ -1,16 +1,17 @@
 // Thanks to https://kentcdodds.com/blog/how-to-use-react-context-effectively for quick setup
 import * as React from 'react'
 
-// type Action = { type: 'increment' } | { type: 'decrement' }
-type Action = {
-  type: 'add' | 'remove'
-}
-type Dispatch = (action: Action) => void
 type Account = {
   id: number;
   name: string;
   balance: number;
 }
+type Action = {
+  type: 'add_account', account: Omit<Account, 'id'>
+} | {
+  type: 'remove'
+}
+type Dispatch = (action: Action) => void
 type State = { accounts: Account[] }
 type BankProviderProps = { children: React.ReactNode }
 
@@ -18,16 +19,24 @@ const BankStateContext = React.createContext<
   { state: State; dispatch: Dispatch } | undefined
 >(undefined)
 
+function generateId(accounts: Account[]) {
+  const accountIds = accounts.map(account => account.id)
+  return Math.max(...accountIds) + 1
+}
+
+
 function bankReducer(state: State, action: Action) {
   switch (action.type) {
-    case 'add': {
-      return state;
+    case 'add_account': {
+      const newAccount = {
+        id: generateId(state.accounts),
+        ...action.account
+      }
+      const accounts = [...state.accounts, newAccount]
+      return { ...state, accounts };
     }
     case 'remove': {
       return state;
-    }
-    default: {
-      throw new Error(`Unhandled action type: ${action.type}`)
     }
   }
 }

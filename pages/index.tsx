@@ -14,8 +14,15 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <h2>Account overview</h2>
-
-
+      <ul>
+        {state.accounts.map(account => (
+          <li key={account.id}>
+            {account.name}
+            <br />
+            {account.balance}
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }
