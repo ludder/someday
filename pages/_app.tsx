@@ -1,6 +1,7 @@
 import '../styles/globals.css'
 import Link from 'next/link'
 import type { AppProps } from 'next/app'
+import { BankProvider } from '../contexts/BankContext'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -13,7 +14,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         </ul>
       </menu>
 
-      <Component {...pageProps} />
+      <BankProvider>
+        <Component {...pageProps} />
+      </BankProvider>
     </div>
   )
 }
