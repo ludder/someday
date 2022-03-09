@@ -39,7 +39,7 @@ const Home: NextPage = () => {
           type="number"
           id="balance"
           name="balance"
-          value={0}
+          value={balance}
           onChange={(event) => setBalance(Number(event.target.value))}
         />
         <button type="submit">Create account</button>
