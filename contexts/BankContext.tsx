@@ -54,27 +54,29 @@ function bankReducer(state: State, action: Action) {
       const toAccount = state.accounts.find(
         (account) => account.id === action.toAccount
       );
-
-      if (!fromAccount || !toAccount) {
-        throw new Error("Account not found");
-      }
-
+      // Untouched accounts in this transaction
       const restAccounts = state.accounts.filter(
         (account) =>
           account.id !== action.fromAccount && account.id !== action.toAccount
       );
 
-      const fromAccountBalance = fromAccount.balance - action.amount;
-      const toAccountBalance = toAccount.balance + action.amount;
+      if (!fromAccount || !toAccount) {
+        throw new Error("Account not found");
+      }
 
       const updatedFromAccount = {
         ...fromAccount,
-        balance: fromAccountBalance,
+        balance: fromAccount.balance - action.amount,
       };
-      const updatedToAccount = { ...toAccount, balance: toAccountBalance };
+      const updatedToAccount = {
+        ...toAccount,
+        balance: toAccount.balance + action.amount,
+      };
 
-      const accounts = [updatedFromAccount, updatedToAccount, ...restAccounts];
+      // All accounts updated
+      const accounts = [...restAccounts, updatedFromAccount, updatedToAccount];
 
+      // At last, add the transaction to the transaction log
       const transaction: TransactionLog = {
         date: new Date().toISOString(),
         fromAccount: action.fromAccount,
@@ -106,8 +108,6 @@ const defaultState = {
 
 function BankProvider({ children }: BankProviderProps) {
   const [state, dispatch] = React.useReducer(bankReducer, defaultState);
-  // NOTE: you *might* need to memoize this value
-  // Learn more in http://kcd.im/optimize-context
   const value = { state, dispatch };
   return (
     <BankStateContext.Provider value={value}>
