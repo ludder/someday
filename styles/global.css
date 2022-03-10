@@ -42,3 +42,7 @@ th, td {
 td.align-right {
   text-align: right;
 }
+
+.negative {
+  color: #f00;
+}

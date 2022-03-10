@@ -1,4 +1,5 @@
 import { useBank } from "../../contexts/BankContext";
+import { formatAmount } from "../../utils";
 
 export const AccountOverview = () => {
   const { state } = useBank();
@@ -23,7 +24,7 @@ export const AccountOverview = () => {
             <tr key={account.id}>
               <td>{account.id}</td>
               <td>{account.name}</td>
-              <td className="align-right">{account.balance}</td>
+              <td className="align-right">{formatAmount(account.balance)}</td>
             </tr>
           ))}
         </tbody>
