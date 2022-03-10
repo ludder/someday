@@ -28,3 +28,17 @@ button {
   cursor: pointer;
   padding: .5rem 1rem;
 }
+
+table {
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #999;
+  padding: .5rem;
+  min-width: 120px;
+}
+
+td.align-right {
+  text-align: right;
+}

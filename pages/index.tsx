@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import { useBank } from "../contexts/BankContext";
+import { AccountOverview } from "../components/AccountOverview/AccountOverview";
 
 const Home: NextPage = () => {
   const { state } = useBank();
@@ -16,16 +17,8 @@ const Home: NextPage = () => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <h2>Account overview</h2>
-      <ul>
-        {state.accounts.map((account) => (
-          <li key={account.id}>
-            {account.name}
-            <br />
-            {account.balance}
-          </li>
-        ))}
-      </ul>
+
+      <AccountOverview />
     </div>
   );
 };
