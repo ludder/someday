@@ -6,3 +6,25 @@ body {
   padding: 1rem 4rem;
 }
 
+
+label {
+  display: block;
+  margin-bottom: .5rem;
+}
+
+input[type="number"],
+input[type="text"],
+select {
+  min-width: 200px;
+  padding: 3px 5px;
+  margin-bottom: 1rem;
+}
+
+button {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  color: #333;
+  cursor: pointer;
+  padding: .5rem 1rem;
+}

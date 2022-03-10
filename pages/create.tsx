@@ -42,6 +42,9 @@ const Home: NextPage = () => {
           value={balance}
           onChange={(event) => setBalance(Number(event.target.value))}
         />
+
+        <br />
+
         <button type="submit">Create account</button>
       </form>
     </div>

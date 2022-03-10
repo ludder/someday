@@ -74,6 +74,8 @@ const Home: NextPage = () => {
           onChange={(event) => setAmount(Number(event.target.value))}
         />
 
+        <br />
+
         <button
           type="submit"
           disabled={fromAccount === 0 || toAccount === 0 || amount === 0}
