@@ -15,13 +15,16 @@ export const Nav = () => {
     <nav>
       <ul className={styles.list}>
         <li className={getClassNames("/")}>
-          <Link href="/">Home</Link>
+          <Link href="/">Account overview</Link>
         </li>
         <li className={getClassNames("/create")}>
           <Link href="/create">Create account</Link>
         </li>
         <li className={getClassNames("/transfer")}>
           <Link href="/transfer">Transfer funds</Link>
+        </li>
+        <li className={getClassNames("/transactions")}>
+          <Link href="/transactions">Transactions</Link>
         </li>
       </ul>
     </nav>

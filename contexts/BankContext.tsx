@@ -17,8 +17,14 @@ type Action =
       toAccount: number;
       amount: number;
     };
+type TransactionLog = {
+  date: string;
+  fromAccount: number;
+  toAccount: number;
+  amount: number;
+};
 type Dispatch = (action: Action) => void;
-type State = { accounts: Account[] };
+type State = { accounts: Account[]; transactions: TransactionLog[] };
 type BankProviderProps = { children: React.ReactNode };
 
 const BankStateContext = React.createContext<
@@ -68,7 +74,16 @@ function bankReducer(state: State, action: Action) {
       const updatedToAccount = { ...toAccount, balance: toAccountBalance };
 
       const accounts = [updatedFromAccount, updatedToAccount, ...restAccounts];
-      return { ...state, accounts };
+
+      const transaction: TransactionLog = {
+        date: new Date().toISOString(),
+        fromAccount: action.fromAccount,
+        toAccount: action.toAccount,
+        amount: action.amount,
+      };
+      const transactions = [...state.transactions, transaction];
+
+      return { ...state, accounts, transactions };
     }
   }
 }
@@ -86,6 +101,7 @@ const defaultState = {
       balance: 2_000,
     },
   ],
+  transactions: [],
 };
 
 function BankProvider({ children }: BankProviderProps) {
