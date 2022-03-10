@@ -11,4 +11,6 @@ Application opens at http://localhost:3000.
 
 ## Running tests
 
-Run `npm run cypress`
+Run `npm run cypress`.
+
+(Please note that the application must be running.)
